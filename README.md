@@ -1,24 +1,28 @@
 
 # API REST Simple avec Node.js et Express
 
-Ce projet est une API REST basique utilisant Node.js et Express, permettant de réaliser des opérations CRUD (Create, Read, Update, Delete) sur des utilisateurs en mémoire.
+Ce projet est une API REST basique utilisant Node.js et Express, permettant de réaliser des opérations CRUD (Create, Read, Update, Delete) sur une liste d'utilisateurs stockée en mémoire.
+
+---
 
 ## 📋 Prérequis
 
 - **Node.js** et **npm** installés sur votre machine.
 - Un éditeur de texte comme **Visual Studio Code**.
 
+---
+
 ## 🚀 Installation et Lancement du Projet
 
 1. **Initialiser le projet**  
-   Dans un terminal, lancez la commande suivante pour initialiser le projet et créer un fichier `package.json` :
+   Ouvrez un terminal dans le répertoire souhaité et lancez la commande suivante pour initialiser un fichier `package.json` :
 
    ```bash
    npm init -y
    ```
 
 2. **Installer les dépendances**  
-   Installez **Express** et **Nodemon** pour démarrer le serveur et recharger automatiquement à chaque modification :
+   Installez les dépendances nécessaires, notamment **Express** pour le serveur et **Nodemon** pour le rechargement automatique lors des modifications :
 
    ```bash
    npm install express
@@ -26,7 +30,7 @@ Ce projet est une API REST basique utilisant Node.js et Express, permettant de r
    ```
 
 3. **Configurer le script de démarrage**  
-   Dans `package.json`, modifiez la section `"scripts"` pour inclure le script de démarrage avec Nodemon :
+   Dans le fichier `package.json`, modifiez la section `"scripts"` pour inclure le script suivant :
 
    ```json
    "scripts": {
@@ -34,31 +38,99 @@ Ce projet est une API REST basique utilisant Node.js et Express, permettant de r
    }
    ```
 
-4. **Démarrer le serveur**  
-   Pour démarrer le serveur, exécutez la commande suivante :
+4. **Créer le fichier principal**  
+   Créez un fichier `index.js` et ajoutez-y votre code API.
+
+5. **Démarrer le serveur**  
+   Lancez le serveur avec la commande suivante :
 
    ```bash
    npm start
    ```
 
-   Le serveur fonctionnera sur `http://localhost:3000`.
+   Par défaut, le serveur sera accessible à l'adresse : [http://localhost:3000](http://localhost:3000).
+
+---
 
 ## 📖 Fonctionnalités de l'API
 
-| Méthode | Route           | Description                                |
-|---------|------------------|--------------------------------------------|
-| GET     | `/`             | Récupère tous les utilisateurs             |
-| POST    | `/`             | Ajoute un nouvel utilisateur               |
-| GET     | `/:id`          | Récupère un utilisateur par son ID         |
-| PUT     | `/:id`          | Met à jour un utilisateur par son ID       |
-| DELETE  | `/:id`          | Supprime un utilisateur par son ID         |
+| Méthode | Route           | Description                                  |
+|---------|------------------|----------------------------------------------|
+| **GET** | `/users`         | Récupère tous les utilisateurs               |
+| **POST**| `/users`         | Ajoute un nouvel utilisateur                 |
+| **GET** | `/users/:id`     | Récupère un utilisateur spécifique par son ID|
+| **PUT** | `/users/:id`     | Met à jour un utilisateur existant par son ID|
+| **DELETE**| `/users/:id`   | Supprime un utilisateur existant par son ID  |
+
+---
 
 ## 🛠️ Exemples d'utilisation avec Postman
 
-1. **GET** `/` - Récupérer tous les utilisateurs.
-2. **POST** `/` - Ajouter un utilisateur en passant les données au format JSON dans le corps de la requête.
-3. **GET** `/:id` - Récupérer un utilisateur spécifique par son ID.
-4. **PUT** `/:id` - Mettre à jour les informations d'un utilisateur existant par son ID.
-5. **DELETE** `/:id` - Supprimer un utilisateur existant par son ID.
+1. **GET** `/users`
+   - Récupère la liste complète des utilisateurs.
+   - Exemple de réponse :
+     ```json
+     [
+       { "id": 1, "firstName": "John", "lastName": "Doe", "role": "admin" },
+       { "id": 2, "firstName": "Jane", "lastName": "Smith", "role": "user" }
+     ]
+     ```
 
+2. **POST** `/users`
+   - Ajoute un utilisateur en passant les données au format JSON dans le corps de la requête.
+   - Corps de requête :
+     ```json
+     {
+       "firstName": "Emma",
+       "lastName": "Wilson",
+       "role": "editor"
+     }
+     ```
+   - Exemple de réponse :
+     ```json
+     {
+       "id": 3,
+       "firstName": "Emma",
+       "lastName": "Wilson",
+       "role": "editor"
+     }
+     ```
+
+3. **GET** `/users/:id`
+   - Récupère un utilisateur spécifique par son ID.
+   - Exemple : `/users/1`
+   - Exemple de réponse :
+     ```json
+     { "id": 1, "firstName": "John", "lastName": "Doe", "role": "admin" }
+     ```
+
+4. **PUT** `/users/:id`
+   - Met à jour un utilisateur existant en passant les données à modifier dans le corps de la requête.
+   - Corps de requête :
+     ```json
+     {
+       "firstName": "UpdatedName",
+       "role": "moderator"
+     }
+     ```
+   - Exemple de réponse :
+     ```json
+     {
+       "msg": "Utilisateur mis à jour",
+       "user": {
+         "id": 1,
+         "firstName": "UpdatedName",
+         "lastName": "Doe",
+         "role": "moderator"
+       }
+     }
+     ```
+
+5. **DELETE** `/users/:id`
+   - Supprime un utilisateur existant par son ID.
+   - Exemple : `/users/1`
+   - Exemple de réponse :
+     ```json
+     { "msg": "Utilisateur supprimé" }
+     ```
 
